@@ -1,0 +1,88 @@
+title: Mtrace Docs
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
+
+module:
+  imports:
+    - path: github.com/imfing/hextra
+
+staticDir:
+  - static
+  - assets
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: true
+    codeFences: true
+    guessSyntax: true
+    style: dracula
+
+pluralizeListTitles: false
+
+languages:
+  en:
+    contentDir: content/en
+    label: English
+    locale: en
+    weight: 1
+    title: Mtrace Docs
+    menu:
+      main:
+        - name: Home
+          pageRef: /
+          weight: 1
+        - name: Installation
+          pageRef: /install/
+          weight: 3
+        - name: Configuration
+          pageRef: /configure/
+          weight: 4
+        - name: Commands
+          pageRef: /commands/
+          weight: 5
+        - name: Search
+          weight: 10
+          params:
+            type: search
+  it:
+    contentDir: content/it
+    label: Italiano
+    locale: it
+    weight: 2
+    title: Documentazione Mtrace
+    menu:
+      main:
+        - name: Home
+          pageRef: /
+          weight: 1
+        - name: Installazione
+          pageRef: /install/
+          weight: 3
+        - name: Configurazione
+          pageRef: /configure/
+          weight: 4
+        - name: Comandi
+          pageRef: /commands/
+          weight: 5
+        - name: Cerca
+          weight: 10
+          params:
+            type: search
+
+params:
+  theme:
+    default: system
+  navbar:
+    displayLogo: true
+    displayTitle: true
+    logo:
+      path: "images/m31.png"
+    search:
+      enable: true
+  footer:
+    enable: false
+    displayCopyright: false
+    width: wide

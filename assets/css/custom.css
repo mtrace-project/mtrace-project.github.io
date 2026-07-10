@@ -1,9 +1,22 @@
 :root {
-  --primary-hue: 12deg;
-  --primary-saturation: 86%;
+  --primary-hue: 10.73deg;
+  --primary-saturation: 88.2%;
+  --primary-lightness: 50%;
 }
 
 .dark {
-  --primary-hue: 12deg;
-  --primary-saturation: 86%;
+  --primary-hue: 10.73deg;
+  --primary-saturation: 88.2%;
+  --primary-lightness: 90%;
+}
+
+/* Custom logo styling */
+.mtrace-logo-inline {
+  color: #bf2c0c !important;
+}
+
+.mtrace-logo-inline svg {
+  height: 5em !important;
+  width: 4em !important;
+  display: block;
 }

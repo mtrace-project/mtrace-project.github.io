@@ -47,6 +47,11 @@ languages:
           weight: 10
           params:
             type: search
+        - name: GitHub
+          url: https://github.com/mtrace-project/mtrace
+          weight: 20
+          params:
+            icon: github
   it:
     contentDir: content/it
     label: Italiano
@@ -71,6 +76,11 @@ languages:
           weight: 10
           params:
             type: search
+        - name: GitHub
+          url: https://github.com/mtrace-project/mtrace
+          weight: 20
+          params:
+            icon: github
 
 params:
   theme:

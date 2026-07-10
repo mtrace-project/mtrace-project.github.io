@@ -28,7 +28,7 @@ languages:
     label: English
     locale: en
     weight: 1
-    title: Mtrace Docs
+    title: Docs
     menu:
       main:
         - name: Home
@@ -52,7 +52,7 @@ languages:
     label: Italiano
     locale: it
     weight: 2
-    title: Documentazione Mtrace
+    title: Documentazione
     menu:
       main:
         - name: Home
@@ -79,7 +79,7 @@ params:
     displayLogo: true
     displayTitle: true
     logo:
-      path: "images/m31.png"
+      path: "images/mtrace-logo.svg"
     search:
       enable: true
   footer:

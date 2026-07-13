@@ -7,7 +7,7 @@ cascade:
 
 ## Introduction
 
-An *expected span* represents a call that you expect to find within the collected trace following a trigger.
+An *expected span* represents a call that is expected to be found within the *trace* collected following the trigger execution.
 
 Example:
 ```yaml
@@ -26,19 +26,20 @@ spans:
 
 ## Configuration
 
-Within an *expected span*, you can specify various parameters to verify that the span collected within the generated trace has specific characteristics.    
-The parameters available within an *expected span* are defined below:
-| Argument        | Description                                               | Optional |
-| --------------- | --------------------------------------------------------- | -------- |
-| `serviceName`   | *OTel* service name associated with the expected span     | No       |
-| `operationName` | *OTel* operation name associated with the expected span   | Yes      |
-| `spanKind`      | *OTel* kind of the expected span                          | Yes      |
-| `spanStatus`    | *OTel* status of the expected span                        | Yes      |
-| `maxDuration`   | Maximum duration of the expected span                     | Yes      |
-| `minDuration`   | Minimum duration of the expected span                     | Yes      |
+Within an *expected span*, you can specify various parameters to verify that the *span* collected in the generated *trace* exhibits specific characteristics.
+Below are the parameters that can be used in an *expected span*:
+
+| Argument        | Description                                              | Optional |
+| --------------- | -------------------------------------------------------- | -------- |
+| `serviceName`   | The *OTel* service name associated with the expected span | No       |
+| `operationName` | The *OTel* operation name associated with the expected span | Yes      |
+| `spanKind`      | The *OTel* span kind of the expected span                 | Yes      |
+| `spanStatus`    | The *OTel* span status of the expected span               | Yes      |
+| `maxDuration`   | Maximum allowed duration of the expected span             | Yes      |
+| `minDuration`   | Minimum allowed duration of the expected span             | Yes      |
 
 ### SpanKind
-The `spanKind` field specifies the *OTel* kind of the expected span, which can be one of the following values:
+The `spanKind` field specifies the *OTel* span kind of the expected span, which can be one of the following values:
 - `internal`
 - `server`
 - `client`
@@ -49,7 +50,7 @@ The `spanKind` field specifies the *OTel* kind of the expected span, which can b
 We recommend reading the [official OpenTelemetry documentation](https://opentelemetry.io/docs/specs/otel/trace/api/#spankind).
 
 ### SpanStatus
-The `spanStatus` field specifies the *OTel* status of the expected span, which can be one of the following values:
+The `spanStatus` field specifies the *OTel* span status of the expected span, which can be one of the following values:
 - `unset`
 - `ok`
 - `error`

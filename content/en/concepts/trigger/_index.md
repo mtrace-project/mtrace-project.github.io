@@ -6,20 +6,20 @@ cascade:
 ---
 
 ## Introduction
-A *trigger* is a call executed with the purpose of generating a **trace** within the system under test.   
-The *trigger* generates an identifier called `trace_id`, which is injected into the initial call and propagated throughout the call chain. This identifier is then used by the involved services to correlate all internal requests to the initial one. This correlated chain of calls is called a **trace**, while the individual calls are known as **spans**.   
-For an in-depth study of these concepts, we recommend reading the [OpenTelemetry documentation](https://opentelemetry.io/docs).
+A *trigger* is a call executed to generate a **trace** within the system under test.
+The *trigger* generates an identifier, called `trace_id`, which is injected into the initial call and propagated throughout the call chain. This identifier is then used by the involved services to correlate all internal requests with the initial one. This chain of correlated calls is known as a **trace**, while the individual calls are called **spans**.
+For a more in-depth understanding of these concepts, we recommend reading the [OpenTelemetry](https://opentelemetry.io/docs) documentation.
 
-The following sections outline the *trigger* types supported by **Mtrace** along with their configurations. If a tool you require is not listed in the sections below, it means it is not currently supported by **Mtrace**.
+The following sections illustrate the types of *triggers* supported by **Mtracer** and their configurations. If a specific type of trigger is missing from the sections below, it means it is not currently supported by **Mtracer**.
 
-## Generic trigger configuration
-The trigger is configurable using the following YAML structure:
+## Generic Trigger Configuration
+The trigger can be configured using the following YAML structure:
 ```yaml
 trigger:
   type: "http" # type of trigger to use
-  args: # varies depending on the trigger type used
+  args: # these vary depending on the trigger type used
     ...
 ```
-The `type` field is mandatory and specifies the kind of *trigger* to use, while the `args` field varies depending on the *trigger* type and contains the fields needed to configure the *trigger* itself.
+The `type` field is mandatory and specifies the kind of *trigger* to use, whereas the `args` field varies depending on the chosen *trigger* and contains the properties necessary to configure it.
 
 The **default** *trigger* type is `http`.

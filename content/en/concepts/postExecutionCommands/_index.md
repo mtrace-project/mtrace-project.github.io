@@ -1,14 +1,14 @@
 ---
-title: Post-execution checks
+title: Post-Execution Checks
 weight: 30
 cascade:
   type: docs
 ---
 
 ## Introduction
-This section illustrates the commands that can be executed after a **test** execution to verify that the state of certain services is as expected.   
-Within test files, you can specify any number of post-execution check commands, which will be executed sequentially after the test case execution.
+This section illustrates the commands that can be executed after a **test** runs to verify that the state of certain services meets expectations.   
+In the test files, you can specify an arbitrary number of post-execution checks, which will run sequentially at the end of the test case.
 
-## Supported post-execution check commands
-The post-execution check commands supported by **Mtrace** are detailed in the following sections.   
-Furthermore, the default post-execution check command type is `shell`.
+## Supported Post-Execution Commands
+The post-execution commands supported by **Mtracer** are detailed in the following sections.   
+Additionally, the default post-execution command type is `shell`.

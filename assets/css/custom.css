@@ -11,12 +11,12 @@
 }
 
 /* Custom logo styling */
-.mtrace-logo-inline {
+.mtracer-logo-inline {
   color: #bf2c0c !important;
 }
 
-.mtrace-logo-inline svg {
-  height: 5em !important;
-  width: 4em !important;
+.mtracer-logo-inline svg {
+  height: 4em !important;
+  width: 5em !important;
   display: block;
 }

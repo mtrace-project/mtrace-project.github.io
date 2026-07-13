@@ -14,7 +14,7 @@ Il trigger Playwright è configurabile attraverso il type `playwright` e i segue
 | `traceUrlPattern` | Stringa per filtrare gli endpoint in cui includere l'header *traceparent*        | **                | Si        |
 
 ### Playwright path
-Il campo `playwrightPath` specifica il percorso della cartella di Playwright a partire dalla working directory, che può essere la cartella in cui si esegue **Mtrace** o la cartella specificata attraverso la flag `--dir`. Se non specificato, il valore di default è `playwright`.
+Il campo `playwrightPath` specifica il percorso della cartella di Playwright a partire dalla working directory, che può essere la cartella in cui si esegue **Mtracer** o la cartella specificata attraverso il flag `--dir`. Se non specificato, il valore di default è `playwright`.
 
 ### File path
 Il campo `filePath` specifica il percorso del file contenente lo script Playwright a partire dalla cartella specificata nel campo `playwrightPath`. Questo campo è obbligatorio e deve essere specificato come stringa.
@@ -33,7 +33,7 @@ Affinché lo script Playwright possa essere utilizzato come trigger, è necessar
 import { test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-    const serverUrl = process.env.MTRACE_PLAYWRIGHT_SERVER_URL;
+    const serverUrl = process.env.MTRACER_PLAYWRIGHT_SERVER_URL;
 
     if (!serverUrl) {
         return;
@@ -45,7 +45,7 @@ test.beforeEach(async ({ page }) => {
             const data = await response.json();
             const traceparent = data.traceparent;
             const traceUrlPattern = data.traceUrlPattern || '**';
-            console.log(`[Mtrace] Received traceparent: ${traceparent}, pattern: ${traceUrlPattern}`);
+            console.log(`[Mtracer] Received traceparent: ${traceparent}, pattern: ${traceUrlPattern}`);
 
             await page.route(traceUrlPattern, async (route) => {
                 const headers = {
@@ -55,19 +55,19 @@ test.beforeEach(async ({ page }) => {
                 await route.continue({ headers });
             });
         } else {
-            console.error(`[Mtrace] Server responded with error: ${response.status}`);
+            console.error(`[Mtracer] Server responded with error: ${response.status}`);
         }
     } catch (error) {
-        console.error(`[Mtrace] Failed to contact Mtrace server at ${serverUrl}:`, error);
+        console.error(`[Mtracer] Failed to contact Mtracer server at ${serverUrl}:`, error);
     }
 });
 ```
-Questo frammento di codice permette a **Mtrace** di generare un *traceparent* e di fornirlo a ogni singolo script Playwright.
+Questo frammento di codice permette a **Mtracer** di generare un *traceparent* e di fornirlo a ogni singolo script Playwright.
 
 Infine, all'interno dello script Playwright utilizzato come trigger, è fondamentale importare il file appena creato tramite `import '<path-to-script>';`.
 
 ## Esempio di configurazione completa
-1. File di test **Mtrace** con trigger Playwright configurato:
+1. File di test **Mtracer** con trigger Playwright configurato:
 ```yaml
 trigger:
   type: "playwright"
@@ -80,21 +80,21 @@ trigger:
     traceUrlPattern: "**/rolldice**"
 ```
 
-2. All'interno del file `config.ts` nella cartella `playwright/mtrace` è presente il codice per inserire l'header *traceparent* in tutte le richieste effettuate dallo script Playwright secondo l'URL pattern. Lo snippet di codice in questione è riportato nella sezione [Configurazione script Playwright](#configurazione-script-playwright).
+2. All'interno del file `config.ts` nella cartella `playwright/mtracer` è presente il codice per inserire l'header *traceparent* in tutte le richieste effettuate dallo script Playwright secondo l'URL pattern. Lo snippet di codice in questione è riportato nella sezione [Configurazione script Playwright](#configurazione-script-playwright).
 
 3. File `rolldice.spec.ts` all'interno di `playwright/tests` contenente lo script Playwright che verrà eseguito come trigger:
 ```javascript
 import { test, expect } from '@playwright/test';
-import '../mtrace/config';
+import '../mtracer/config';
 
 test('roll the dice', async ({ page }) => {
     await page.goto('http://localhost:5173/');
     await expect(page.getByRole('textbox', { name: 'Player Name (Optional)' })).toBeVisible();
     await page.getByRole('textbox', { name: 'Player Name (Optional)' }).click();
-    await page.getByRole('textbox', { name: 'Player Name (Optional)' }).fill('Mtrace');
+    await page.getByRole('textbox', { name: 'Player Name (Optional)' }).fill('Mtracer');
     await expect(page.getByRole('button', { name: 'Roll the Dice' })).toBeVisible();
     await page.getByRole('button', { name: 'Roll the Dice' }).click();
-    await expect(page.getByText('Mtrace rolled a')).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('Mtracer rolled a')).toBeVisible({ timeout: 10000 });
 });
 ```
 
@@ -104,5 +104,5 @@ Altrimenti, una volta eseguite le azioni sulla pagina, lo script Playwright term
 {{% /callout %}}
 
 {{% callout type="warning" %}}
-In Playwright, è possibile eseguire lo stesso test con più browser attraverso la flag `--project` o il file di configurazione. Tuttavia **Mtrace** può analizzare una **trace** alla volta. Perciò, se si esegue lo stesso test con più browser, **Mtrace** analizzerà solo la prima trace ricevuta, ignorando le altre. 
+In Playwright, è possibile eseguire lo stesso test con più browser attraverso il flag `--project` o il file di configurazione. Tuttavia **Mtracer** può analizzare una **trace** alla volta. Perciò, se si esegue lo stesso test con più browser, **Mtracer** analizzerà solo la prima trace ricevuta, ignorando le altre. 
 {{% /callout %}}

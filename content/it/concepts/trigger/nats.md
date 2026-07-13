@@ -5,7 +5,7 @@ cascade:
 ---
 
 ## Configurazione
-Il trigger NATS supporta sia il client NATS che JetStream. Infatti il trigger supporta i type `nats` e `jetstream`. La configurazione è la stessa per entrambi i type, cambia solamente il tipo di client utilizzato internamente da **Mtrace** per connettersi a NATS.
+Il trigger NATS supporta sia il client NATS che JetStream. Infatti il trigger supporta i type `nats` e `jetstream`. La configurazione è la stessa per entrambi i type, cambia solamente il tipo di client utilizzato internamente da **Mtracer** per connettersi a NATS.
 
 Il trigger NATS è configurabile attraverso i seguenti argomenti:
 | Argomento       | Descrizione                            | Opzionale |
@@ -18,7 +18,7 @@ Il trigger NATS è configurabile attraverso i seguenti argomenti:
 | `caPemPath`     | Percorso del file PEM per TLS          | Si        |
 
 ### Headers
-Il campo `headers` specifica gli headers da includere nel messaggio pubblicato su NATS, che devono essere specificate come coppie chiave-valore all'interno di una mappa YAML.
+Il campo `headers` specifica gli headers da includere nel messaggio pubblicato su NATS, che devono essere specificati come coppie chiave-valore all'interno di una mappa YAML.
 
 Esempio:
 ```yaml

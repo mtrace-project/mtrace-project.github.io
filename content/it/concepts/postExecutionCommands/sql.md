@@ -6,11 +6,11 @@ cascade:
 ---
 
 ## Introduzione
-Il comando di controllo post esecuzione `sql` consente di eseguire espressioni booleane in linguaggio **SQL**. L'espressione deve esplicitamente restituire un valore booleano (TRUE o FALSE/ 1 o 0), che indica se il controllo è passato o meno.   
-È fondamentale specificare il `driverName` il quale indica il tipo di database a cui ci si vuole connettere e il `dsn` (Data Source Name) che specifica le informazioni necessarie per la connessione al database. Per ogni tipo di database si consiglia di consultare la documentazione ufficiale per la sintassi corretta del `dsn`.
+Il comando di controllo post-esecuzione `sql` consente di valutare espressioni in linguaggio **SQL**. L'espressione deve restituire esplicitamente un valore booleano (TRUE o FALSE / 1 o 0), che indica se il controllo ha avuto esito positivo.   
+È fondamentale specificare il `driverName`, che indica il tipo di database a cui ci si vuole connettere, e il `dsn` (Data Source Name), che fornisce le informazioni necessarie per la connessione. Per ogni tipo di database, si consiglia di consultare la documentazione ufficiale per verificare la sintassi corretta del `dsn`.
 
 ## Driver supportati
-I driver supportati da **Mtrace** sono i seguenti:
+I driver supportati da **Mtracer** sono i seguenti:
 - `pgx`: driver per **PostgreSQL**
 - `mysql`: driver per **MySQL**
 - `sqlite`: driver per **SQLite**

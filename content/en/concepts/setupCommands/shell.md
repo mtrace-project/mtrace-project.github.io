@@ -5,8 +5,8 @@ cascade:
   type: docs
 ---
 
-The *shell* setup command allows you to run any command-line instruction before and after a test execution, such as running a Python script to populate a database.   
-If you specify a *shell* setup command, it is mandatory to specify one of the same type after the test execution, which is called the **cleanup** command.
+The *shell* setup command allows you to run any command-line instruction before and after a test execution, such as executing a *Python* script to populate a database.
+If you define a *shell* setup command, it is mandatory to specify another command of the same type to be executed after the test finishes; the latter is called a **cleanup** command.
 
 #### Example
 ```yaml

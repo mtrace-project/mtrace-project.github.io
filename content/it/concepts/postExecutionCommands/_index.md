@@ -6,9 +6,9 @@ cascade:
 ---
 
 ## Introduzione
-In questa sezione sono illustrati i comandi che possono essere eseguiti dopo l'esecuzione di un **test** per verificare che lo stato di determinati servizi sia quello che ci si aspetta.   
-Nei file di test è possibile specificare un numero qualsiasi di comandi di controllo post esecuzione, i quali verranno eseguiti in sequenza dopo l'esecuzione del test case.
+Questa sezione illustra i comandi che possono essere eseguiti al termine di un **test** per verificare che lo stato dei servizi corrisponda alle aspettative.   
+Nei file di test è possibile specificare un numero arbitrario di controlli post-esecuzione, che verranno eseguiti in sequenza alla fine del test case.
 
 ## Comandi di controllo post esecuzione supportati
-I comandi di controllo post esecuzione supportati da **Mtrace** sono riportati nelle sezioni seguenti.   
+I comandi di controllo post esecuzione supportati da **Mtracer** sono riportati nelle sezioni seguenti.   
 Inoltre, il tipo di comando di controllo post esecuzione di default è `shell`.

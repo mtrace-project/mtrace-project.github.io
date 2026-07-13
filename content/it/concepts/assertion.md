@@ -6,10 +6,10 @@ cascade:
 ---
 
 ## Introduzione
-In questa sezione vengono descritte le asserzioni di **Mtrace**. Le asserzioni sono uno strumento per fare verifiche più specifiche sulla *trace* raccolta secondo diversi linguaggi di asserzione.   
+Questa sezione descrive le asserzioni di **Mtracer**. Le asserzioni sono uno strumento che consente di effettuare verifiche più specifiche sulla *trace* raccolta, utilizzando diversi linguaggi di asserzione.   
 
 ## Asserzioni supportate
-Attualmente, **Mtrace** supporta le asserzioni presenti nelle sezioni sottostanti.   
+Attualmente, **Mtracer** supporta le asserzioni presenti nelle sezioni sottostanti.   
 Inoltre il tipo di default di asserzione è `cel`.
 
 ### Common Expression Language (CEL)
@@ -27,7 +27,7 @@ assertions:
       spanStatusCheck: "trace.spans.all(s, s.spanStatus == 'unset')"
 ```
 
-Si noti come si possono definire più asserzioni, ma all'interno di un asserzione è possibile definire più query, che vengono tutte verificate e devono essere tutte vere affinché l'asserzione sia considerata verificata.
+Si noti che è possibile definire più asserzioni e, all'interno di ciascuna, più query. Tutte le query vengono valutate e devono risultare vere affinché l'asserzione sia considerata verificata.
 
 ### Campi trace
 All'interno delle espressioni CEL è possibile accedere a diversi campi della *trace* raccolta.    
@@ -59,6 +59,13 @@ In seguito sono definiti i campi disponibili per ogni *span*:
 - `s.startTime`: timestamp di inizio della *span* con standard RFC3339
 - `s.endTime`: timestamp di fine della *span* con standard RFC3339
 - `s.duration`: durata della *span* in secondi, la stringa è espressa in secondi e deve avere il suffisso "s", ad esempio `1.5s`
+- `s.attributes`: mappa di attributi associati alla *span*, con chiave di tipo stringa e valore di tipo qualsiasi. Questo campo è utile per eseguire asserzioni su attributi specifici di una o più *span*, ad esempio:
+```yaml
+assertions:
+  - name: "Check db system"
+    queries:
+      dbSystemCheck: "trace.spans[3].attributes['db.system'] == 'postgresql'"
+```
 
 {{< callout type="info" >}}
 CEL offre diverse macro che consentono di semplificare e aggiungere funzionalità alle espressioni.    

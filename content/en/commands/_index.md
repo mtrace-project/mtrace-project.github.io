@@ -7,8 +7,8 @@ cascade:
   type: docs
 ---
 
-This section describes the commands of **Mtrace**.  
+This section describes the commands of **Mtracer**.  
 
 These commands are designed to be executed from the command line and allow you to create and run tests.
 
-Currently, **Mtrace** only supports the `mtrace run` and `mtrace create` commands.
+Currently, **Mtracer** supports the `mtracer run`, `mtracer check` and `mtracer create` commands.

@@ -1,9 +1,11 @@
 {
     "cSpell.words": [
         "dall'observability",
-        "mtrace",
+        "mtracer",
         "rolldice",
         "sslmode",
-        "traceparent"
+        "traceparent",
+        "Winget",
+        "xattr"
     ]
 }

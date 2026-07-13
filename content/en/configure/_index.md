@@ -7,24 +7,24 @@ cascade:
   type: docs
 ---
 
-In this section, we will explore how to configure **Mtrace** for your end-to-end tests.
+In this section, we will explore how to configure **Mtracer** for *end-to-end* testing.
 
 ## Configuration methods
-**Mtrace** supports various configuration methods to meet the needs of every developer and testing environment. The supported methods are listed below, ordered by decreasing priority (from highest to lowest):
-1. **Command-line flags**: you can pass specific configuration parameters directly from the command line when executing any command.
-2. **Environment variables**: you can define environment variables to configure **Mtrace**, or specify them inside a `.env` file at the root of the project (in the latter case, they will be loaded automatically).
-3. **YAML configuration file**: you can define a YAML configuration file and specify its path using the `--config` or `-c` flag. If no path is provided, **Mtrace** will look for a file named `mtrace.yaml` in the project root by default.
+**Mtracer** supports several configuration methods to meet the needs of every developer and every testing environment. The supported methods are listed below, in descending order of priority (from most to least relevant):
+1. **Command line flags**: it is possible to pass some configuration parameters directly from the command line during execution;
+2. **Environment variables**: it is possible to define environment variables directly in the system or within a `.env` file in the project root (in the latter case, they will be loaded automatically);
+3. **YAML configuration file**: it is possible to define a configuration file in YAML format by specifying its path with the `--config` or `-c` flag. If no path is specified, **Mtracer** will look for a file named `mtracer.yaml` in the project root by default.
 
-If none of these options are used, **Mtrace** will fall back to its default configuration values.    
-Furthermore, if a parameter is defined using multiple methods, the value from the method with the highest priority will be used.
+If none of these options are used, **Mtracer** will apply default values.    
+Furthermore, if a parameter is specified in more than one configuration method, the value provided by the method with the highest priority will be used.
 
-## Configuration parameters nomenclature
-Configuration parameters follow a specific nomenclature depending on the configuration method used. Below are the naming conventions for each method:
-- **Command-line flags**: parameters can be explored via the `mtrace --help` or `mtrace -h` command. Flags generally consist of words separated by hyphens (`-`) and can be specified in a long format (e.g., `--config`) or a short format (e.g., `-c`).
-- **Environment variables**: parameters can be specified as environment variables using uppercase letters and underscores (`_`) to separate words, for example, `MTRACE_BACKEND_TYPE`. Note that all environment variables must be prefixed with `MTRACE_` to be recognized by the application.
-- **YAML configuration file**: parameters can be defined using the classic `key: value` syntax, such as `backend_type: jaeger`.   
+## Configuration parameter nomenclature
+Configuration parameters follow a specific nomenclature depending on the method used. The conventions for each method are shown below:
+- **Command line flags**: parameters can be explored via the `mtracer --help` or `mtracer -h` command. Flags generally consist of words separated by hyphens (`-`) and can be specified in long (e.g., `--config`) or short (e.g., `-c`) form.
+- **Environment variables**: environment variables must be written in uppercase, with words separated by underscores (`_`), for example `MTRACER_BACKEND_TYPE`. It is important to note that all variables must have the `MTRACER_` prefix to be recognized.
+- **YAML configuration file**: parameters are specified using standard `key: value` syntax (e.g., `backend_type: jaeger`).   
 
-It's also important to understand how YAML parameter names translate to environment variables. Below is a clarifying example:
+It is essential to understand how YAML names are converted into environment variables. An explanatory example is provided below:
 
 {{< tabs >}}
   {{< tab name="YAML" >}}
@@ -36,31 +36,32 @@ openobserve:
   {{< /tab >}}
   {{< tab name="Environment variables" >}}
   ```bash
-MTRACE_BACKEND_TYPE=openobserve
-MTRACE_OPENOBSERVE_BASE_URL=http://localhost:5080
+MTRACER_BACKEND_TYPE=openobserve
+MTRACER_OPENOBSERVE_BASE_URL=http://localhost:5080
 ```
   {{< /tab >}}
 {{< /tabs >}}
 
-In the documentation below, to refer to a YAML configuration variable, the `struct.variable_name` syntax will be used, indicating a YAML configuration structured like this:
+In the subsequent documentation, to refer to a variable defined in YAML, the syntax `struct.variable_name` will be used, indicating a configuration of this type:
 ```yaml
 struct:
     variable_name: value
 ```
 
 ## Generic configuration parameters
-The command-line flags defined in this section are available for all **Mtrace** commands.
+The command line flags described in this section are available for all **Mtracer** commands.
 
-| Environment variable   | YAML variable   | Command-line flag        | Description                                                                  | Default value     |
-| ---------------------- | --------------- | ------------------------ | ---------------------------------------------------------------------------- | ----------------- |
-| `MTRACE_BACKEND_TYPE`  | `backend_type`  |                          | Type of observability backend to use                                         | `openobserve`     |
-|                        |                 | `--config`               | Path to the configuration file relative to the command execution directory   |                   |
-| `MTRACE_DEBUG_ENABLED` | `debug_enabled` | `--debug`                | Enables debug mode                                                           | `false`           |
-| `MTRACE_DIRECTORY`     | `directory`     | `--dir`                  | Working directory                                                            |                   |
+| Environment Variable   | YAML Variable  | Command Line Flag | Description                                                              | Default Value     |
+| ---------------------- | -------------- | ----------------- | ------------------------------------------------------------------------ | ----------------- |
+| `MTRACER_BACKEND_TYPE` | `backend_type` |                   | Type of observability backend to use                                     | `openobserve`     |
+|                        |                | `--config`        | Path to the configuration file relative to the execution folder          |                   |
+| `MTRACER_DIRECTORY`    | `directory`    | `--dir`           | Working directory in which to execute the command                        |                   |
+| `MTRACER_QUIET`        | `quiet`        | `--quiet`         | Disables the output of the executed command result                       | `false`           |
+| `MTRACER_VERBOSE`      | `verbose`      | `--verbose`       | Enables detailed output of the executed command                          | `false`           |
 
 ## Observability backend configuration
-The following sections detail the required configurations depending on the used backend. If a backend is not listed below, it means it is not currently supported by **Mtrace**.
+The following sections illustrate the necessary configurations depending on the backend used. If a backend is not on the list, it means that it is currently not supported by **Mtracer**.
 
 {{% callout type="warning" %}}
-**Mtrace** only supports trace analysis in the **OTel** format.
+**Mtracer** supports trace analysis only in **OTel** format.
 {{% /callout %}}

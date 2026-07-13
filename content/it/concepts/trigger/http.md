@@ -14,7 +14,7 @@ Il trigger HTTP è configurabile attraverso il type `http` e i seguenti argoment
 | `body`    | Corpo della richiesta HTTP                |                   | Si        |
 
 ### Headers
-Il campo `headers` specifica gli headers da includere nella richiesta HTTP, che devono essere specificate come coppie chiave-valore all'interno di una mappa YAML.
+Il campo `headers` specifica gli headers da includere nella richiesta HTTP, che devono essere specificati come coppie chiave-valore all'interno di una mappa YAML.
 
 Esempio:
 ```yaml

@@ -6,9 +6,9 @@ cascade:
 ---
 
 ## Introduzione
-Una *trace* è un insieme di *span*, l'una figlia dell'altra, che rappresentano l'esecuzione di una richiesta o di un'operazione all'interno di un sistema distribuito. Tuttavia, una *trace* non è necessariamente una semplice lista di *span*, in quanto è possibile che una *span* abbia più figli e che quindi la *trace* assuma una struttura ad albero. Inoltre, non sempre è possibile prevedere con certezza l'ordine di esecuzione delle *span* all'interno di una *trace*, ad esempio in presenza di chiamate asincrone o di operazioni eseguite in parallelo.  
+Una *trace* è un insieme di *span*, l'una figlia dell'altra, che rappresentano l'esecuzione di una richiesta o di un'operazione all'interno di un sistema distribuito. Tuttavia, una *trace* non è necessariamente una semplice lista di *span*; poiché una *span* può avere più figli, la *trace* può assumere una struttura ad albero. Inoltre, non sempre è possibile prevedere con certezza l'ordine di esecuzione delle *span* all'interno di una *trace*, ad esempio in presenza di chiamate asincrone o di operazioni eseguite in parallelo.  
 
-Tutto ciò crea la necessità di definire molteplici *sub-trace* da verificare all'interno della *trace* principale. Per questo motivo, è possibile definire più *expected trace* all'interno di un test, ognuna con un proprio insieme di *expected span*.
+Tutto ciò crea la necessità di definire molteplici *sub-trace* da verificare all'interno di una *trace* principale. Per questo motivo, in un test è possibile definire più *expected trace*, ognuna con il proprio insieme di *expected span*.
 
 Esempio:
 ```yaml
@@ -52,7 +52,7 @@ expectedTraces:
 ```
 
 ## Configurazione
-All'interno di un *expected trace* è possibile definire un insieme di *expected span* che rappresentano le chiamate che ci si aspetta di trovare all'interno della *trace* raccolta, assieme a diversi parametri per modificare la modalità di comparazione.
+In una *expected trace* è possibile definire un insieme di *expected span*, che rappresentano le chiamate previste all'interno della *trace* raccolta, insieme a vari parametri per personalizzare la modalità di confronto.
 
 Di seguito sono definiti i parametri utilizzabili all'interno di un *expected trace*:
 
@@ -62,11 +62,11 @@ Di seguito sono definiti i parametri utilizzabili all'interno di un *expected tr
 | `checker` | Modalità con cui viene paragonata l'*expected trace* rispetto alla trace raccolta | contains          | Si        |
 
 ### Ordered
-Il parametro `ordered` indica se deve essere considerato l'ordine delle *expected span* all'interno dell'*expected trace*. Se `ordered` è impostato a `true`, le *expected span* devono essere presenti nella trace raccolta nello stesso ordine in cui sono definite all'interno del file affinché l'*expected trace* sia considerata verificata.    
+Il parametro `ordered` indica se deve essere considerato l'ordine delle *expected span* all'interno dell'*expected trace*. Se `ordered` è impostato a `true`, affinché l'*expected trace* sia verificata, le *expected span* devono essere presenti nella trace raccolta nello stesso ordine in cui sono definite.    
 Se invece `ordered` è impostato a `false`, le *expected span* possono essere presenti nella trace raccolta in qualsiasi ordine.
 
 ### Checker
-Il parametro `checker` indica la modalità con cui viene paragonata l'*expected trace* rispetto alla trace raccolta. I valori possibili sono:
+Il parametro `checker` indica la modalità con cui l'*expected trace* viene confrontata con la trace raccolta. I valori possibili sono:
 - `contains`: l'*expected trace* è verificata se tutte le *expected span* sono presenti nella trace raccolta, indipendentemente dalla presenza di eventuali *span* aggiuntive
 - `strict`: l'*expected trace* è verificata se tutte le *expected span* sono presenti nella trace raccolta e non sono presenti *span* aggiuntive
 - `startsWith`: l'*expected trace* è verificata se tutte le *expected span* definite sono presenti all'inizio della trace raccolta. Sono ammesse *span* aggiuntive solo alla fine della trace raccolta 
@@ -75,12 +75,12 @@ Il parametro `checker` indica la modalità con cui viene paragonata l'*expected 
 ## Metodo di rappresentazione della trace
 Come già accennato, una *trace* è un insieme di *span* genitore-figlio che può essere rappresentato come una lista di *span* o come una struttura ad albero.
 
-Perciò, è importante definire come devono essere rappresentate le *expected span* all'interno di un *expected trace* per poter essere confrontate con le *span* raccolte. 
+Per questo motivo, è importante definire come le *expected span* debbano essere rappresentate all'interno di una *expected trace* per poter essere confrontate con le *span* raccolte. 
 
-Dopo aver raccolto la *trace* dal backend, **Mtrace** esegue questi passaggi:
-- rappresenta le *span* raccolte come un grafo orientato, in cui ogni nodo rappresenta una *span* e ogni arco rappresenta la relazione padre-figlio tra due *span*
-- ordina i figli in base al timestamp delle *span* in ordine crescente
-- esplora il grafo in profondità (DFS) e rappresenta le *span* come una lista ordinata in base all'ordine di visita dei nodi durante l'esplorazione DFS
+Dopo aver raccolto la *trace* dal backend, **Mtracer** esegue questi passaggi:
+- Rappresenta le *span* raccolte come un grafo orientato, dove ogni nodo è una *span* e ogni arco rappresenta la relazione padre-figlio tra due *span*.
+- Ordina i figli in base al timestamp di inizio delle *span* in ordine crescente.
+- Esplora il grafo in profondità (DFS) e rappresenta le *span* come una lista ordinata in base all'ordine di visita dei nodi.
 
 Questa rappresentazione permette di trasformare interi rami di *span* in una lista ordinata, in cui l'ordine di esplorazione si basa sul timestamp di inizio delle *span*. Inoltre, consente di rappresentare qualsiasi tipo di *trace* come una lista di *span*.
 

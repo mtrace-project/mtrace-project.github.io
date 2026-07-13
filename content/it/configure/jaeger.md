@@ -6,9 +6,9 @@ cascade:
 
 `backend_type="jaeger"`
 
-| Variabile d’ambiente     | Variabile YAML    | Descrizione                     | Valore di default        |
-| ------------------------ | ----------------- | ------------------------------- | ------------------------ |
-| `MTRACE_JAEGER_BASE_URL` | `jaeger.base_url` | URL di base dell'istanza Jaeger | `http://localhost:16686` |
+| Variabile d’ambiente      | Variabile YAML    | Descrizione                     | Valore di default        |
+| ------------------------- | ----------------- | ------------------------------- | ------------------------ |
+| `MTRACER_JAEGER_BASE_URL` | `jaeger.base_url` | URL di base dell'istanza Jaeger | `http://localhost:16686` |
 
 ### Esempio in YAML
 ```yaml

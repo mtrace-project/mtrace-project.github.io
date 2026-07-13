@@ -1,4 +1,4 @@
-title: Mtrace Docs
+title: Mtracer Docs
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: false
 
@@ -79,7 +79,7 @@ params:
     displayLogo: true
     displayTitle: true
     logo:
-      path: "images/mtrace-logo.svg"
+      path: "images/mtracer-logo.svg"
     search:
       enable: true
   footer:

@@ -6,9 +6,9 @@ cascade:
 ---
 
 ## Introduction
-A *trace* is a collection of spans, where one is the child of another, representing the execution of a request or an operation within a distributed system. However, a trace is not necessarily a simple list of spans, as a span can have multiple children, giving the trace a tree-like structure. Moreover, it is not always possible to predict the execution order of spans within a trace, for instance in the presence of asynchronous calls or parallel operations.  
+A *trace* is a collection of *spans*—in parent-child relationships—that represent the execution of a request or an operation within a distributed system. However, a *trace* is not necessarily a simple list of *spans*; since a *span* can have multiple children, a *trace* often takes the shape of a tree structure. Furthermore, it is not always possible to accurately predict the execution order of *spans* within a *trace*, for example, due to asynchronous calls or operations executed in parallel.
 
-This creates the need to define multiple *sub-traces* to verify within the main trace. Therefore, it is possible to define multiple *expected traces* within a test, each with its own set of *expected spans*.
+This creates the need to define multiple *sub-traces* to be verified within a main *trace*. For this reason, you can define multiple *expected traces* within a single test, each with its own set of *expected spans*.
 
 Example:
 ```yaml
@@ -52,47 +52,47 @@ expectedTraces:
 ```
 
 ## Configuration
-Within an *expected trace*, you can define a set of *expected spans* that represent the calls you expect to find within the collected trace, along with various parameters to modify the comparison mode.
+Within an *expected trace*, you can define a set of *expected spans* representing the calls you expect to find in the collected *trace*, along with several parameters to modify the comparison logic.
 
-The parameters available within an *expected trace* are defined below:
+The following are the parameters available within an *expected trace*:
 
-| Argument  | Description                                                                       | Default value | Optional  |
-| --------- | --------------------------------------------------------------------------------- | ------------- | --------- |
-| `ordered` | Indicates whether the order of the *expected spans* should be considered          | true          | Yes       |
-| `checker` | The mode used to compare the *expected trace* against the collected trace         | contains      | Yes       |
+| Argument | Description | Default | Optional |
+| --------- | --------------------------------------------------------------------------------- | ----------------- | --------- |
+| `ordered` | Indicates whether the order of the *expected spans* must be considered | true | Yes |
+| `checker` | Strategy used to compare the *expected trace* with the collected trace | contains | Yes |
 
 ### Ordered
-The `ordered` parameter indicates whether the order of the *expected spans* within the *expected trace* should be taken into account. If `ordered` is set to `true`, the *expected spans* must be present in the collected trace in the same order as they are defined in the file for the *expected trace* to be verified.    
-If `ordered` is set to `false`, the *expected spans* can appear in the collected trace in any order.
+The `ordered` parameter indicates whether the order of the *expected spans* within the *expected trace* should be taken into account. If `ordered` is set to `true`, the *expected spans* must be present in the collected trace in the exact order they are defined in the file for the *expected trace* to be verified successfully.
+If `ordered` is set to `false`, the *expected spans* can be found in the collected trace in any order.
 
 ### Checker
-The `checker` parameter specifies the mode used to compare the *expected trace* against the collected trace. The possible values are:
-- `contains`: the *expected trace* is verified if all *expected spans* are present in the collected trace, regardless of any additional spans
-- `strict`: the *expected trace* is verified if all *expected spans* are present in the collected trace and there are no additional spans
-- `startsWith`: the *expected trace* is verified if all the defined *expected spans* are present at the beginning of the collected trace. Additional spans are only allowed at the end of the trace
-- `endsWith`: the *expected trace* is verified if all the defined *expected spans* are present at the end of the collected trace. Additional spans are only allowed at the beginning of the trace
+The `checker` parameter defines the strategy used to compare the *expected trace* against the collected trace. Possible values are:
+- `contains`: the *expected trace* is successfully verified if all the *expected spans* are present in the collected trace, regardless of any additional *spans*.
+- `strict`: the *expected trace* is successfully verified if all the *expected spans* are present in the collected trace and there are no extra *spans*.
+- `startsWith`: the *expected trace* is successfully verified if all defined *expected spans* are present at the beginning of the collected trace. Additional *spans* are only allowed at the end of the collected trace.
+- `endsWith`: the *expected trace* is successfully verified if all defined *expected spans* are present at the end of the collected trace. Additional *spans* are only allowed at the beginning of the collected trace.
 
-## Trace representation method
-As mentioned earlier, a trace is a collection of child-parent spans that can be represented as a list of spans or as a tree structure.
+## Trace Representation Method
+As mentioned earlier, a *trace* is a set of parent-child *spans* that can be represented as a list of *spans* or as a tree structure.
 
-Therefore, it must be clear how the *expected spans* should be represented within an *expected trace* so that they can be compared with the collected spans. 
+Therefore, it is important to define how *expected spans* should be represented within an *expected trace* so they can be compared with the collected *spans*.
 
-After collecting the trace from the backend, **Mtrace** performs the following steps:
-- it represents the collected spans as a directed graph, where each node represents a span and each edge represents the parent-child relationship between two spans
-- it sorts the children in ascending order based on the spans' timestamp
-- it explores the graph using depth-first search (DFS) and represents the spans as an ordered list based on the node visitation order during the DFS traversal
+After collecting the *trace* from the backend, **Mtracer** performs the following steps:
+- Represents the collected *spans* as a directed graph, where each node is a *span* and each edge represents a parent-child relationship between two *spans*.
+- Sorts children based on their *span* start timestamp in ascending order.
+- Performs a Depth-First Search (DFS) on the graph and represents the *spans* as an ordered list based on the visit order of the nodes during the traversal.
 
-This approach allows entire branches of spans to be represented as an ordered list, where the exploration order is based on the start timestamp of the spans. Furthermore, it makes it possible to represent any kind of trace as a list of spans.
+This representation makes it possible to flatten entire branches of *spans* into an ordered list, where the traversal order is based on the start timestamp of the *spans*. Furthermore, it allows any type of *trace* to be represented as a list of *spans*.
 
-Example of conversion from a trace represented as a directed graph to a trace represented as an ordered list:
+Example conversion from a *trace* represented as a directed graph to an ordered list:
 
-### Representation as a directed graph
+### Directed Graph Representation
 ```mermaid
 graph TD
     classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
     classDef root fill:#fae9e4,stroke:#98351b,stroke-width:2px;
     
-    %% Graph nodes
+    %% Graph Nodes
     A("Span A (Root)<br><small>t=0ms</small>"):::root
     B("Span B<br><small>t=5ms</small>")
     C("Span C<br><small>t=12ms</small>")
@@ -111,7 +111,7 @@ graph TD
     linkStyle 1 stroke:#333,stroke-width:1px;
 ```
 
-### Representation as an ordered list
+### Ordered List Representation
 ```mermaid
 graph LR
     classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
@@ -124,7 +124,7 @@ graph LR
     F("5. Span F<br><small>t=15ms</small>")
     E("6. Span E<br><small>t=20ms</small>")
 
-    %% Linear flow of DFS
+    %% DFS Linear Flow
     A --> B
     B --> D
     D --> C

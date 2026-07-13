@@ -6,15 +6,15 @@ cascade:
 
 ## Configuration
 The HTTP trigger is configurable using the `http` type and the following arguments:
-| Argument  | Description                               | Default value     | Optional  |
-| --------- | ----------------------------------------- | ----------------- | --------- |
-| `url`     | HTTP server URL                           |                   | No        |
-| `method`  | HTTP method to use                        | GET               | No        |
-| `headers` | Headers to include in the request         |                   | Yes       |
-| `body`    | HTTP request body                         |                   | Yes       |
+| Argument  | Description                               | Default value | Optional |
+| --------- | ----------------------------------------- | ------------- | -------- |
+| `url`     | HTTP server URL                           |               | No       |
+| `method`  | HTTP method to use                        | GET           | No       |
+| `headers` | Headers to include in the request         |               | Yes      |
+| `body`    | HTTP request body                         |               | Yes      |
 
 ### Headers
-The `headers` field specifies the headers to include in the HTTP request, which must be provided as key-value pairs within a YAML map.
+The `headers` field specifies the headers to include in the HTTP request, which must be specified as key-value pairs within a YAML map.
 
 Example:
 ```yaml
@@ -24,7 +24,7 @@ headers:
 ```
 
 ### Body
-The `body` field specifies the body of the HTTP request, which can be provided as a string.
+The `body` field specifies the HTTP request body, which can be specified as a string.
 
 Example:
 ```yaml

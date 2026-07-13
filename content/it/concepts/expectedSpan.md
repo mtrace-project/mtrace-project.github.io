@@ -7,7 +7,7 @@ cascade:
 
 ## Introduzione
 
-Un *expected span* rappresenta una chiamata che ci si aspetta di trovare all'interno della *trace* raccolta in seguito al trigger.
+Un *expected span* rappresenta una chiamata che ci si aspetta di trovare all'interno della *trace* raccolta in seguito all'esecuzione del trigger.
 
 Esempio:
 ```yaml
@@ -26,8 +26,8 @@ spans:
 
 ## Configurazione
 
-All'interno di un *expected span* è possibile specificare diversi parametri per verificare che la *span* raccolta all'interno della *trace* generata abbia determinate caratteristiche.    
-Di seguito sono definiti i parametri utilizzabili all'interno di un *expected span*:
+In una *expected span* è possibile specificare vari parametri per verificare che la *span* raccolta nella *trace* presenti determinate caratteristiche.    
+Di seguito sono elencati i parametri utilizzabili in una *expected span*:
 
 | Argomento       | Descrizione                                              | Opzionale |
 | --------------- | -------------------------------------------------------- | --------- |

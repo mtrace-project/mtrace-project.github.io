@@ -1,4 +1,4 @@
-module mtrace-docs-hextra
+module mtracer-docs-hextra
 
 go 1.26.3
 

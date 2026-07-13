@@ -5,7 +5,7 @@ cascade:
   type: docs
 ---
 
-Il comando di setup di tipo *docker* consente di eseguire determinati tipi di operazioni all'interno dei container Docker, come per esempio interrompere o rallentare un container prima dell'esecuzione di un test.
+Il comando di setup di tipo *docker* consente di eseguire specifiche operazioni sui container Docker, come interrompere o rallentare un container prima dell'esecuzione di un test.
 
 Questo tipo di comando supporta le operazioni descritte di seguito.
 
@@ -62,13 +62,13 @@ setupCommands:
 ```
 
 ## Simulazione di problemi di rete all'interno di un container
-Queste operazioni consentono di simulare problemi di rete all'interno di un container Docker, ad esempio iniettando della latenza o limitando la banda disponibile. Le operazioni di questo tipo necessitano del `containerId` e di argomenti specifici. 
+Queste operazioni consentono di simulare problemi di rete all'interno di un container Docker, ad esempio introducendo latenza o limitando la larghezza di banda disponibile. Tali operazioni richiedono il parametro `containerId` oltre a ulteriori argomenti specifici. 
 
-Inoltre, è possibile specificare l'interfaccia virtuale su cui applicare l'operazione tramite l'argomento `netInterface`; altrimenti verrà utilizzata l'interfaccia di default `eth0`.    
-Nella maggior parte dei casi un container Docker senza configurazioni di rete specifiche utilizza `eth0` come interfaccia di default; tuttavia è possibile verificare il nome dell'interfaccia utilizzando il comando `ip addr` all'interno del container.
+Inoltre, tramite l'argomento `netInterface` è possibile specificare l'interfaccia di rete virtuale su cui applicare l'operazione; in caso contrario, verrà utilizzata l'interfaccia di default `eth0`.    
+Nella maggior parte dei casi, un container Docker senza configurazioni di rete personalizzate utilizza `eth0` come interfaccia predefinita; è comunque possibile verificare il nome dell'interfaccia eseguendo il comando `ip addr` all'interno del container.
 
 {{% callout type="info" %}}
-**Mtrace** basa questa funzionalità sull'utilizzo di [`tc`](https://man7.org/linux/man-pages/man8/tc.8.html), uno strumento Linux per la configurazione del sottosistema di rete. Esso permette di applicare implementazioni particolari di [`qdisc`](https://tldp.org/HOWTO/Traffic-Control-HOWTO/classless-qdiscs.html), come [`netem`](https://man7.org/linux/man-pages/man8/tc-netem.8.html), all'interfaccia virtuale specificata, al fine di simulare i problemi di rete.
+**Mtracer** basa questa funzionalità sull'utilizzo di [`tc`](https://man7.org/linux/man-pages/man8/tc.8.html), uno strumento Linux per la configurazione del sottosistema di rete. Esso permette di applicare regole avanzate di accodamento (`qdisc`), come [`netem`](https://man7.org/linux/man-pages/man8/tc-netem.8.html), all'interfaccia virtuale specificata, al fine di simulare i problemi di rete.
 {{% /callout %}}
 
 ### Simulazione di ritardi di rete
@@ -101,8 +101,7 @@ setupCommands:
 
 ### Simulazione di problemi di rete con qdisc custom
 È possibile simulare problemi di rete più complessi utilizzando l'operazione `customQdiscContainer` per eseguire un comando custom all'interno del container che sfrutta `tc` per applicare la configurazione di rete desiderata.   
-È importante considerare che il comando specificato nel parametro `qdiscCmd` è eseguito nel container target insieme a `tc qdisc add dev <netInterface> root <qdiscCmd>`; perciò si potranno applicare le implementazioni di `qdisc` compatibili con `tc`, consultabili [qui](https://man7.org/linux/man-pages/man8/tc.8.html#CLASSLESS_QDISCS).   
-Una volta scelta l'implementazione di `qdisc` da utilizzare, è fondamentale consultare la documentazione ufficiale della singola implementazione per scoprire i parametri e i comandi supportati.
+È importante considerare che il comando indicato nel parametro `qdiscCmd` viene eseguito nel container target mediante `tc qdisc add dev <netInterface> root <qdiscCmd>`; pertanto, sarà possibile applicare le implementazioni di `qdisc` compatibili con `tc` (consultabili [qui](https://man7.org/linux/man-pages/man8/tc.8.html#CLASSLESS_QDISCS)). Dopo aver scelto il tipo di `qdisc`, è fondamentale fare riferimento alla documentazione ufficiale della singola implementazione per conoscere i parametri supportati.
 
 Esempio:
 ```yaml

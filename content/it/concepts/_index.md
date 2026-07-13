@@ -8,7 +8,7 @@ cascade:
 ---
 
 ## Introduzione
-Un **trace test**, nell'ambito di **Mtrace**, è un qualsiasi file `mt.yaml` che utilizza il formato definito con l'obiettivo di chiamare un'azione all'interno del sistema sotto osservazione e verificarne gli effetti a livello di *trace* raccolta dall'observability backend.
+Un **trace test**, nell'ambito di **Mtracer**, è un qualsiasi file `mt.yaml` che utilizza il formato definito con l'obiettivo di invocare un'azione all'interno del sistema sotto osservazione e verificarne gli effetti a livello di *trace* raccolte dall'observability backend.
 
 In altre parole, un **trace test** è un test *end-to-end* che ha come focus l'analisi della *trace* generata dalle applicazioni in seguito a una specifica azione, come per esempio una chiamata HTTP o gRPC.
 
@@ -94,7 +94,22 @@ assertions:
     queries:
       errorCheck: "trace.errorCount == 0"
       spanStatusCheck: "trace.spans.all(s, s.spanStatus == 'unset')"
+postExecChecks:
+  - name: "Check if there are any rolls for Alice in the database"
+    type: "sql"
+    args:
+      dsn: "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
+      query: "(SELECT COUNT(*) FROM rolls WHERE player_name = 'Alice') > 0"
+  - name: "Check if the dice service is running"
+    type: "shell"
+    args:
+      cmd: "echo 'Hello'"
+      expectedExitCode: 0
 ```
+
+{{% callout type="warning" %}}
+È importante sapere che i percorsi definiti all'interno dei test devono essere relativi alla posizione del file di test stesso, e non alla cartella di lavoro specificata con il flag `--dir` o in cui si esegue il comando.
+{{% /callout %}}
 
 ### Nome e descrizione del test
 La sezione `name` e `description` serve a identificare il test e a fornire una breve descrizione del suo scopo. Queste informazioni sono utili per comprendere rapidamente l'obiettivo del test e per organizzare i test in modo efficace.
@@ -146,3 +161,8 @@ Per maggiori dettagli consulta la sezione [Expected Trace](./expectedTrace/).
 La sezione `assertions` è **opzionale** e consente di definire una serie di asserzioni da verificare sulla *trace* o le singole *span* raccolte.
 
 Per maggiori dettagli sulle asserzioni, consulta la sezione [Asserzioni](./assertion/).
+
+### Post execution checks
+La sezione `postExecChecks` è **opzionale** e consente di definire una serie di controlli da eseguire dopo l'esecuzione del test per verificare che l'ambiente sia stato modificato correttamente in seguito al trigger. Questi controlli sono fondamentali per garantire che il test abbia avuto l'effetto desiderato sul sistema sotto test.
+
+Per maggiori dettagli sui controlli post esecuzione, consulta la sezione [Controlli Post Esecuzione](./postExecutionCommands/).

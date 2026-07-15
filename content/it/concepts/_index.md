@@ -10,7 +10,7 @@ cascade:
 ## Introduzione
 Un **trace test**, nell'ambito di **Mtracer**, è un qualsiasi file `mt.yaml` che utilizza il formato definito con l'obiettivo di invocare un'azione all'interno del sistema sotto osservazione e verificarne gli effetti a livello di *trace* raccolte dall'observability backend.
 
-In altre parole, un **trace test** è un test *end-to-end* che ha come focus l'analisi della *trace* generata dalle applicazioni in seguito a una specifica azione, come per esempio una chiamata HTTP o gRPC.
+In altre parole, un **trace test** è un test *di sistema* che ha come focus l'analisi della *trace* generata dalle applicazioni in seguito a una specifica azione, come per esempio una chiamata HTTP o gRPC.
 
 ## Struttura di un trace test
 Un file di test `mt.yaml` che definisce un **trace test** è composto da diverse sezioni, ognuna con uno scopo specifico.

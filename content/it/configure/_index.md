@@ -7,7 +7,7 @@ cascade:
   type: docs
 ---
 
-In questa sezione verrà esplorato come configurare **Mtracer** per i test *end-to-end*.
+In questa sezione verrà esplorato come configurare **Mtracer** per i test *di sistema*.
 
 ## Metodi di configurazione
 **Mtracer** supporta diversi metodi di configurazione per venire incontro alle esigenze di ogni sviluppatore e di ogni ambiente di test. I metodi supportati sono elencati di seguito, in ordine decrescente di priorità (dal più al meno rilevante):
